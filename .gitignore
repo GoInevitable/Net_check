@@ -1,0 +1,43 @@
+# Build artifacts and executables
+*.exe
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# IDE and editor files
+.vscode/
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.code-workspace
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Logs and runtime artifacts
+*.log
+dnstool.log
+dnstool.conf
+
+# Debug symbols
+*.pdb
+*.dSYM/
+
+# CMake/build directories (if applicable)
+build/
+cmake_build/
+out/
+
+# Temporary files
+*.bak
+*.tmp~

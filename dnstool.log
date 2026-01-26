@@ -282,3 +282,11 @@ OUT server=8.8.8.8 host=example.com loss=0 ips=104.18.26.120,104.18.27.120 reach
 Hidden servers: fec0:0:0:ffff::3 fec0:0:0:ffff::2 fec0:0:0:ffff::1
 ==== end run ====
 Summary: visible_servers=3 hidden=3 unique_ips=2 reachable=6 tot_ips=6 avg_loss=0
+==== dnstool run: 2026-01-26 21:13:25 ====
+OUT server=202.102.134.68 host=github.com loss=0 ips=20.205.243.166 reachable=1
+  ip=20.205.243.166 reachable=yes
+OUT server=202.102.154.3 host=github.com loss=0 ips=20.205.243.166 reachable=1
+  ip=20.205.243.166 reachable=yes
+Hidden servers: 1.1.1.1 8.8.8.8
+==== end run ====
+Summary: visible_servers=2 hidden=2 unique_ips=1 reachable=2 tot_ips=2 avg_loss=0
