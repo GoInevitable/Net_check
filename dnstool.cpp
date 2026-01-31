@@ -620,6 +620,31 @@ int main(int argc, char** argv) {
 	}
 
 	cleanup_sockets();
+	// If running in a standalone console (e.g. external terminal launched by VS Code),
+	// pause before exit so the user can read output. Honor environment overrides:
+	// - DNSTOOL_PAUSE=1  => force pause
+	// - DNSTOOL_NO_PAUSE=1 => disable pause
+	{
+		bool pause_on_exit = false;
+#if defined(_WIN32) || defined(_WIN64)
+		// If we have a console window and are not being debugged, assume an external terminal.
+		if (GetConsoleWindow() != NULL && !IsDebuggerPresent()) pause_on_exit = true;
+		if (getenv("DNSTOOL_NO_PAUSE")) pause_on_exit = false;
+		if (getenv("DNSTOOL_PAUSE")) pause_on_exit = true;
+#else
+		// On POSIX, if stdout is a tty and TERM_PROGRAM is not set to vscode, treat as external terminal.
+		if (isatty(fileno(stdout)) && getenv("TERM_PROGRAM") == NULL) pause_on_exit = true;
+		if (getenv("DNSTOOL_NO_PAUSE")) pause_on_exit = false;
+		if (getenv("DNSTOOL_PAUSE")) pause_on_exit = true;
+#endif
+		if (pause_on_exit) {
+			cout << "\nPress Enter to exit...";
+			cout.flush();
+			string _dummy;
+			// If stdin is closed or not interactive, this will just return immediately.
+			getline(cin, _dummy);
+		}
+	}
 	return 0;
 }
 
